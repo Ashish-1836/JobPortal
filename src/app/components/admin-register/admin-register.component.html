@@ -1,0 +1,135 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <button class="back-btn" (click)="navigateToDashboard()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="header-content">
+        <div class="admin-icon">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <h1>Admin Registration</h1>
+        <p>Create your admin account</p>
+      </div>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user"></i>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Enter your full name"
+            [class.error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          <span *ngIf="registerForm.get('name')?.errors?.['required']">Name is required</span>
+          <span *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope"></i>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="company">Company Name</label>
+        <div class="input-wrapper">
+          <i class="fas fa-building"></i>
+          <input
+            type="text"
+            id="company"
+            formControlName="company"
+            placeholder="Enter your company name"
+            [class.error]="registerForm.get('company')?.invalid && registerForm.get('company')?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('company')?.invalid && registerForm.get('company')?.touched">
+          <span *ngIf="registerForm.get('company')?.errors?.['required']">Company name is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+            [class.error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="register-btn" 
+        [disabled]="registerForm.invalid || isLoading"
+      >
+        <span *ngIf="!isLoading">
+          <i class="fas fa-user-plus"></i> Register
+        </span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i> Registering...
+        </span>
+      </button>
+    </form>
+
+    <div class="register-footer">
+      <p>Already have an admin account?</p>
+      <button class="login-link" (click)="navigateToLogin()">
+        Login as Admin
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="dashboard-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to JobPortal</h1>
+      <p class="hero-subtitle">Connect with opportunities that match your skills and aspirations</p>
+    </div>
+  </div>
+
+  <div class="login-options">
+    <div class="option-card admin-card">
+      <div class="card-icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <h2>Admin Portal</h2>
+      <p>Manage job postings and review applications</p>
+      <div class="card-actions">
+        <button class="btn btn-primary" (click)="navigateToAdminLogin()">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="btn btn-secondary" (click)="navigateToAdminRegister()">
+          <i class="fas fa-user-plus"></i> Register
+        </button>
+      </div>
+    </div>
+
+    <div class="option-card student-card">
+      <div class="card-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <h2>Student Portal</h2>
+      <p>Find jobs and apply to opportunities</p>
+      <div class="card-actions">
+        <button class="btn btn-primary" (click)="navigateToStudentLogin()">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="btn btn-secondary" (click)="navigateToStudentRegister()">
+          <i class="fas fa-user-plus"></i> Register
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h2>Why Choose JobPortal?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <i class="fas fa-search"></i>
+        <h3>Easy Job Search</h3>
+        <p>Find the perfect job with our advanced search filters</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-rocket"></i>
+        <h3>Quick Apply</h3>
+        <p>Apply to multiple jobs with just a few clicks</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-chart-line"></i>
+        <h3>Track Progress</h3>
+        <p>Monitor your application status in real-time</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Secure Platform</h3>
+        <p>Your data is protected with industry-standard security</p>
+      </div>
+    </div>
+  </div>
+</div>

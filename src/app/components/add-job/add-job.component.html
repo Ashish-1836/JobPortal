@@ -1,0 +1,173 @@
+<div class="add-job-container">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <button class="back-btn" (click)="navigateToDashboard()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="nav-content">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add New Job</span>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="view-jobs-btn" (click)="navigateToJobList()">
+        <i class="fas fa-list"></i> View Jobs
+      </button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h1>Create New Job Posting</h1>
+        <p>Fill in the details below to create a new job posting</p>
+      </div>
+
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="job-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="title">Job Title *</label>
+            <input
+              type="text"
+              id="title"
+              formControlName="title"
+              placeholder="e.g., Senior Frontend Developer"
+              [class.error]="jobForm.get('title')?.invalid && jobForm.get('title')?.touched"
+            />
+            <div class="error-message" *ngIf="jobForm.get('title')?.invalid && jobForm.get('title')?.touched">
+              <span *ngIf="jobForm.get('title')?.errors?.['required']">Job title is required</span>
+              <span *ngIf="jobForm.get('title')?.errors?.['minlength']">Title must be at least 5 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company Name *</label>
+            <input
+              type="text"
+              id="company"
+              formControlName="company"
+              placeholder="e.g., TechCorp Inc."
+              [class.error]="jobForm.get('company')?.invalid && jobForm.get('company')?.touched"
+            />
+            <div class="error-message" *ngIf="jobForm.get('company')?.invalid && jobForm.get('company')?.touched">
+              <span *ngIf="jobForm.get('company')?.errors?.['required']">Company name is required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location">Location *</label>
+            <input
+              type="text"
+              id="location"
+              formControlName="location"
+              placeholder="e.g., New York, NY"
+              [class.error]="jobForm.get('location')?.invalid && jobForm.get('location')?.touched"
+            />
+            <div class="error-message" *ngIf="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
+              <span *ngIf="jobForm.get('location')?.errors?.['required']">Location is required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="type">Job Type *</label>
+            <select
+              id="type"
+              formControlName="type"
+              [class.error]="jobForm.get('type')?.invalid && jobForm.get('type')?.touched"
+            >
+              <option value="full-time">Full Time</option>
+              <option value="part-time">Part Time</option>
+              <option value="internship">Internship</option>
+            </select>
+            <div class="error-message" *ngIf="jobForm.get('type')?.invalid && jobForm.get('type')?.touched">
+              <span *ngIf="jobForm.get('type')?.errors?.['required']">Job type is required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="salary">Salary Range *</label>
+          <input
+            type="text"
+            id="salary"
+            formControlName="salary"
+            placeholder="e.g., $70,000 - $90,000"
+            [class.error]="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched"
+          />
+          <div class="error-message" *ngIf="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched">
+            <span *ngIf="jobForm.get('salary')?.errors?.['required']">Salary is required</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Job Description *</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Provide a detailed description of the job role, responsibilities, and what you're looking for in a candidate..."
+            rows="6"
+            [class.error]="jobForm.get('description')?.invalid && jobForm.get('description')?.touched"
+          ></textarea>
+          <div class="error-message" *ngIf="jobForm.get('description')?.invalid && jobForm.get('description')?.touched">
+            <span *ngIf="jobForm.get('description')?.errors?.['required']">Job description is required</span>
+            <span *ngIf="jobForm.get('description')?.errors?.['minlength']">Description must be at least 50 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="requirementsInput">Requirements *</label>
+          <div class="requirements-input">
+            <input
+              type="text"
+              id="requirementsInput"
+              formControlName="requirementsInput"
+              placeholder="e.g., JavaScript, Angular, 3+ years experience"
+            />
+            <button type="button" class="add-requirement-btn" (click)="addRequirement()">
+              <i class="fas fa-plus"></i> Add
+            </button>
+          </div>
+          <div class="requirements-list" *ngIf="requirements.length > 0">
+            <div class="requirement-item" *ngFor="let req of requirements; let i = index">
+              <span>{{ req }}</span>
+              <button type="button" class="remove-requirement-btn" (click)="removeRequirement(i)">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="error-message" *ngIf="requirements.length === 0">
+            <span>At least one requirement is required</span>
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="navigateToJobList()">
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="btn-primary" 
+            [disabled]="jobForm.invalid || requirements.length === 0 || isLoading"
+          >
+            <span *ngIf="!isLoading">
+              <i class="fas fa-plus"></i> Post Job
+            </span>
+            <span *ngIf="isLoading">
+              <i class="fas fa-spinner fa-spin"></i> Posting...
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

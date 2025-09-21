@@ -1,0 +1,96 @@
+<div class="create-company">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fas fa-building"></i>
+      <span>Create Company</span>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" (click)="navigateToDashboard()">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </button>
+      <button class="nav-btn" (click)="navigateToJobList()">
+        <i class="fas fa-list"></i> Jobs
+      </button>
+    </div>
+  </nav>
+
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Create New Company</h1>
+      <p>Add a new company to the job portal</p>
+    </div>
+
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()" class="company-form">
+      <div class="form-group">
+        <label for="name">Company Name *</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter company name"
+          [class.error]="companyForm.get('name')?.invalid && companyForm.get('name')?.touched"
+        />
+        <div class="error-message" *ngIf="companyForm.get('name')?.invalid && companyForm.get('name')?.touched">
+          <span *ngIf="companyForm.get('name')?.errors?.['required']">Company name is required</span>
+          <span *ngIf="companyForm.get('name')?.errors?.['minlength']">Company name must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location *</label>
+        <input
+          type="text"
+          id="location"
+          formControlName="location"
+          placeholder="Enter company location"
+          [class.error]="companyForm.get('location')?.invalid && companyForm.get('location')?.touched"
+        />
+        <div class="error-message" *ngIf="companyForm.get('location')?.invalid && companyForm.get('location')?.touched">
+          <span *ngIf="companyForm.get('location')?.errors?.['required']">Location is required</span>
+          <span *ngIf="companyForm.get('location')?.errors?.['minlength']">Location must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Enter company description"
+          rows="4"
+          [class.error]="companyForm.get('description')?.invalid && companyForm.get('description')?.touched"
+        ></textarea>
+        <div class="error-message" *ngIf="companyForm.get('description')?.invalid && companyForm.get('description')?.touched">
+          <span *ngIf="companyForm.get('description')?.errors?.['required']">Description is required</span>
+          <span *ngIf="companyForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="submit-btn"
+          [disabled]="companyForm.invalid || isLoading"
+        >
+          <i class="fas fa-plus" *ngIf="!isLoading"></i>
+          <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+          {{ isLoading ? 'Creating...' : 'Create Company' }}
+        </button>
+        <button type="button" class="cancel-btn" (click)="navigateToDashboard()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+      </div>
+
+      <div class="message-container">
+        <div class="success-message" *ngIf="successMessage">
+          <i class="fas fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
+        <div class="error-message" *ngIf="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
