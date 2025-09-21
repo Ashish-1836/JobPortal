@@ -25,12 +25,12 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.currentUser = this.authService.getCurrentUser();
+    this.currentUser = this.authService.getCurrentUser();
 
-    // if (!this.currentUser || this.currentUser.type !== 'admin') {
-    //   this.router.navigate(['/admin/login']);
-    //   return;
-    // }
+    if (!this.currentUser || this.currentUser.type !== 'admin') {
+      this.router.navigate(['/admin/login']);
+      return;
+    }
 
     this.loadDashboardData();
   }

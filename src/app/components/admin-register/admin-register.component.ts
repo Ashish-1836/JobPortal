@@ -61,18 +61,18 @@ export class AdminRegisterComponent {
       this.authService.register(userData).subscribe({
         next: (success) => {
           if (success) {
-            this.successMessage = 'Registration successful! Redirecting to login...';
+            this.successMessage = '✅ Registration successful! Redirecting to login...';
             setTimeout(() => {
               this.router.navigate(['/admin/login']);
             }, 2000);
           } else {
-            this.errorMessage = 'Email already exists. Please try a different email.';
+            this.errorMessage = '❌ Registration failed. Please check your information and try again.';
           }
           this.isLoading = false;
         },
         error: (error) => {
           console.error('Registration error:', error);
-          this.errorMessage = 'Registration failed. Please try again.';
+          this.errorMessage = '❌ Registration failed. Please try again.';
           this.isLoading = false;
         }
       });

@@ -57,6 +57,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "liveReload": true,
+            "hmr": false
+          },
           "configurations": {
             "production": {
               "buildTarget": "jobportal:build:production"
